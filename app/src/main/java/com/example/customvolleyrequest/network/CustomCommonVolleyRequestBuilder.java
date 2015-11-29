@@ -13,8 +13,14 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,6 +98,26 @@ public abstract class CustomCommonVolleyRequestBuilder<T> extends Request<T> imp
 
 	@Override
 	public void postErrorExecute() {
+	}
+
+	public static String encodingQueryURLString(String url, Map<String, String> params) {
+		String queryString = "";
+
+		if (params != null) {
+			List<NameValuePair> getParams = new ArrayList<>();
+
+			if (params.containsKey("")) {
+				queryString = "&" + params.get("");
+			} else {
+				for (String key : params.keySet()) {
+					getParams.add(new BasicNameValuePair(key, params.get(key)));
+				}
+
+				queryString = "&" + URLEncodedUtils.format(getParams, "UTF-8");
+			}
+		}
+
+		return url + queryString;
 	}
 
 	public CustomCommonVolleyRequestBuilder withTimeOutSec(int timeOutSec) {

@@ -10,6 +10,9 @@ import com.android.volley.VolleyError;
 import com.example.customvolleyrequest.R;
 import com.example.customvolleyrequest.network.CustomCommonVolleyRequestBuilder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 	private TextView mResultText;
 
@@ -34,9 +37,16 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void invokeGetStringCustomCommonVolleyRequest() {
-		String testUrl = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=bf073841-c734-49bf-a97f-3757a6013812&limit=10";
+		String testUrl = "http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire";
+		Map<String, String> params = new HashMap<>();
+		params.put("rid", "bf073841-c734-49bf-a97f-3757a6013812");
+		params.put("limit", "10");
 
-		this.mGetStringCustomCommonVolleyRequest = new CustomCommonVolleyRequestBuilder<String>(this, Request.Method.GET, testUrl, String.class) {
+		this.mGetStringCustomCommonVolleyRequest = new CustomCommonVolleyRequestBuilder<String>(
+				this,
+				Request.Method.GET,
+				CustomCommonVolleyRequestBuilder.encodingQueryURLString(testUrl, params),
+				String.class) {
 			@Override
 			public void onApiSuccess(String response) {
 				Log.d(MainActivity.class.getName(), response);
