@@ -132,6 +132,7 @@ public abstract class CustomCommonVolleyRequestBuilder<T> extends Request<T> imp
 
 	public CustomCommonVolleyRequestBuilder withAuth() {
 		this.headers = new HashMap<>();
+
 		// Put keys and values of your header
 		// this.headers.put("YOUR_KEY1", "YOUR_VALUE1");
 		// this.headers.put("YOUR_KEY2", "YOUR_VALUE2");
